@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  ml-service-green:
+    build: .
+    image: ml-app:green
+    container_name: ml-container-green
+    ports:
+      - "9082:8000"
+    environment:
+      - APP_VERSION=v1.1.0
+      - APP_COLOR=green

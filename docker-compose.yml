@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  ml-container-blue:
+    build: .
+    image: ml-model:blue
+
+  ml-container-green:
+    build: .
+    image: ml-model:green
+
+  gateway:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "9080:80" 
+    depends_on:
+      - ml-container-blue
+      - ml-container-green

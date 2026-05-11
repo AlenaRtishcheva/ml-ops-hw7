@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  ml-service-blue:
+    build: .
+    image: ml-app:blue
+    container_name: ml-container-blue
+    ports:
+      - "9081:8000"
+    environment:
+      - APP_VERSION=v1.0.0
+      - APP_COLOR=blue
