@@ -20,7 +20,7 @@ jobs:
 
       # Фиксация результатов выполнения для обеспечения воспроизводимости пайплайна
       - name: Make pipeline reproducible
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: training-report
           path: results.txt
