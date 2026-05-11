@@ -3,8 +3,8 @@ from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-import time
-time.sleep(3600)
+# import time
+
 
 # 1. Загружаем данные
 iris = load_iris()
@@ -21,4 +21,4 @@ model.fit(X_train, y_train)
 accuracy = accuracy_score(y_test, model.predict(X_test))
 print(f'Точность accuracy: {accuracy:.2f}')
 
-time.sleep(3600)
+# time.sleep(3600)
