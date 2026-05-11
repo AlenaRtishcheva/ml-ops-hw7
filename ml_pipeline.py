@@ -1,24 +1,22 @@
-import pandas as pd
+from fastapi import FastAPI
+import os
 from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
-# import time
 
+app = FastAPI()
 
-# 1. Загружаем данные
+# Обучаем модель при старте
 iris = load_iris()
-X, y = iris.data, iris.target
+model = RandomForestClassifier(n_estimators=100).fit(iris.data, iris.target)
 
-# 2. Делим на выборки
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+@app.get("/health")
+@app.get("/")
+def health():
+    # Берем версию из настроек Docker Compose
+    return {"status": "ok", "version": os.getenv("APP_VERSION", "v1.0.0")}
 
-# 3. Обучаем модель (параметры прописаны сразу внутри)
-model = RandomForestClassifier(n_estimators=100, random_state=42)
-model.fit(X_train, y_train)
-
-# 4. Проверяем точность
-accuracy = accuracy_score(y_test, model.predict(X_test))
-print(f'Точность accuracy: {accuracy:.2f}')
-
-# time.sleep(3600)
+@app.get("/predict")
+def predict():
+    # Пример предсказания для проверки
+    pred = model.predict([iris.data[0]])
+    return {"prediction": int(pred[0]), "status": "ok"}
