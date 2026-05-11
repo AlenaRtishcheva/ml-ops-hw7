@@ -1,8 +1,0 @@
-services:
-  ml-service-blue:
-    build: .
-    image: ml-app:v1.0.0
-    ports:
-      - "8081:8000" # Доступна на порту 8081
-    environment:
-      - APP_VERSION=v1.0.0
