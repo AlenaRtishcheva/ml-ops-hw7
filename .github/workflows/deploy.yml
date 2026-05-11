@@ -12,11 +12,11 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          # Собираем образ и помечаем его твоим именем репозитория
+          # Сборка образа API
           docker build -t ghcr.io/${{ github.repository_owner }}/ml-app:latest .
           
-          # Логинимся в хранилище GitHub (пароль берется автоматически)
+          # Авторизация в хранилище GitHub (пароль подставляется сам)
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           
-          # Отправляем образ в облако
+          # Отправка образа в облако
           docker push ghcr.io/${{ github.repository_owner }}/ml-app:latest
