@@ -1,0 +1,22 @@
+name: Model Deployment
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and push Docker image
+        run: |
+          # Собираем образ и помечаем его твоим именем репозитория
+          docker build -t ghcr.io/${{ github.repository_owner }}/ml-app:latest .
+          
+          # Логинимся в хранилище GitHub (пароль берется автоматически)
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          
+          # Отправляем образ в облако
+          docker push ghcr.io/${{ github.repository_owner }}/ml-app:latest
